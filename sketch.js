@@ -1,3 +1,9 @@
+//수정해야되는 부분: touches 손가락 따라다니는 원이 button 밑으로 지나다님
+//현재 touch 안 쓰고 mouse 쓰고 있는데 폰/태블릿에서도 잘 작동 됨
+//근데 mouseRelease 쓰면 태블릿/폰에서 좀 문제가 생김
+
+let value=0;
+
 var oscil;
 var freq;
 var amp;
@@ -90,6 +96,7 @@ function setup() {
 function draw() {
   background(255);
   
+  
   strokeWeight(1);
   tint(255, 255, 255);
   noFill();
@@ -102,22 +109,36 @@ function draw() {
   rect(430, 10, 70, 400); //시
   rect(500, 10, 70, 400); //도
 
-  fill(0,0,0);
+  
+  //기울기에 따라 검은 건반 색이 바뀌도록
+  
+  fill(rotationX,rotationY, rotationZ);
   rect(55, 10, 50, 210); //도#
+  fill(0,rotationY,rotationZ);
   rect(125, 10, 50, 210); //레#
+  fill(rotationY, rotationX, rotationZ);
   rect(265, 10, 50, 210); //파#
+  fill(rotationZ, rotationY, rotationX);
   rect(335, 10, 50, 210); //솔#
+  fill(rotationX, rotationZ, rotationY);
   rect(405, 10, 50, 210); //라#
 
-   fill('magenta');
+  //기울기 정보 화면에 표시
+  console.log(rotationX);
+  text(rotationX, 160, 430);
+  text(rotationY, 160, 450);
+  text(rotationZ, 160, 470);
+  
+  
+  fill('magenta');
   
   for (var i = 0; i < touches.length; i++) {
     ellipse(touches[i].x, touches[i].y, 30, 30);
   }
-      // for each touch, draw an ellipse at its location.
+  // for each touch, draw an ellipse at its location.
   // touches are stored in array.
-
-
+  
+  // RotationChange();
 }
 
 
@@ -217,7 +238,23 @@ function playB4b(){
     oscil.start();
 }
 
+function mouseReleased(){
+  oscil.amp(0);
+}
 
+
+// function RotationChange() {
+
+//   background(0,0,0); for(var i = 0; i<400; i=i+133){ //noProtect
+//     for(var j = 0; j<400; j=j+133){  
+//       tint(random(0, 255), random(0, 255), random(0, 255));
+// }
+// }
+// }
+// 기울기에 따라 배경색 바뀌도록 
+// function deviceMoved(){
+//   value = (random(0,255), random(0,255), random(0,255));
+// }
 
 // function base(){
 //   if(C4.mouseClicked){
